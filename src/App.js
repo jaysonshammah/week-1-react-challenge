@@ -1,122 +1,25 @@
-// import logo from './logo.svg';
-// import './App.css';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-import React, { useState } from 'react';
 import './App.css';
-import './index.css';
-
+import  SearchBox from './Components/SearchBox';
+import AddTransaction from './Components/AddTransaction';
+import TableTransaction from './Components/TableTransaction';
 
 
 function App() {
-  //using useState to be able to hold values entered by the user
-  const [date, setDate] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [amount, setAmount] = useState('');
-
-  // Array to hold transactions
-  const [transactions, setTransactions] = useState([]);
-
-  // these event handlers updates the values inserted by the user
-  const handleDateChange = (e) => setDate(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handleCategoryChange = (e) => setCategory(e.target.value);
-  const handleAmountChange = (e) => setAmount(e.target.value);
-
-  // this function is for adding the transactions to the table
-  const addTransaction = () => {
-    const newTransaction = { date, description, category, amount };
-    setTransactions([...transactions, newTransaction]) //use of the spread operator
-    // Clear input fields after adding transaction
-    setDate('');
-    setDescription('');
-    setCategory('');
-    setAmount('');
-  };
-
+  let TransactionRecords = [
+    { date: "2024-04-01", description: "Grocery shopping", category: "Food", amount: 150.00 },
+    { date: "2024-04-03", description: "Monthly subscription", category: "Entertainment", amount: 12.99 },
+    { date: "2024-04-04", description: "Gym membership", category: "Health", amount: 40.00 },
+    { date: "2024-04-05", description: "Coffee with friends", category: "Social", amount: 8.50 },
+    { date: "2024-04-06", description: "Internet bill", category: "Utilities", amount: 60.00 },
+    { date: "2024-04-10", description: "Textbooks", category: "Education", amount: 120.00 }
+];
   return (
     <div className="App">
-      <div className="header">
-        <h1>The Royal Bank of Flatiron</h1>
-      </div>
-
-      <div className="search">
-        <input type="text" placeholder="Search Your Transaction"></input>
-        <button type="submit">&#128269;</button>
-      </div>
-
-      <div className="input">
-        <input
-          type="text"
-          placeholder="Date"
-          value={date}
-          onChange={handleDateChange}
-        ></input>
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={handleDescriptionChange}
-        ></input>
-        <input
-          type="text"
-          placeholder="Category"
-          value={category}
-          onChange={handleCategoryChange}
-        ></input>
-        <input
-          type="text"
-          placeholder="Amount"
-          value={amount}
-          onChange={handleAmountChange}
-        ></input>
-      </div>
-
-      <button onClick={addTransaction}>Add Transaction</button>
-
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction, index) => (
-            <tr key={index}>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.amount}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className='royaltitle'>The Royal Bank of Flatiron</div>
+      <SearchBox />
+      <AddTransaction/>
+      <TableTransaction records={TransactionRecords}/>
     </div>
   );
 }
